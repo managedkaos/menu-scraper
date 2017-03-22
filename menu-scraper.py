@@ -1,5 +1,7 @@
+import datetime
 import requests
 from bs4 import BeautifulSoup
+datetime.datetime.now().strftime('%A')
 
 menus = {
         'ABC Riverside':'http://legacy.cafebonappetit.com/weekly-menu/145942', 
@@ -11,6 +13,7 @@ menus = {
     }
 
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday']
+today = datetime.datetime.now().strftime('%A')
 
 for cafe in menus:
     print cafe 
@@ -24,11 +27,16 @@ for cafe in menus:
                 if 'STOCKPOT' in stationname.contents[0]:
                     day_counter=0
                     for cell_menu_item in row('div',{'class':'cell_menu_item'}):
+                        if today not in days[day_counter]:
+                            day_counter += 1
+                            continue
+
                         print "\t%s" % days[day_counter]
-                        day_counter += 1
 
                         for menu_item in cell_menu_item('div',{'class':'menu-item'}):
                             for menu_item_description in menu_item('div',{'class':'menu-item-description'}):
                                 for strong in menu_item_description('strong'):
                                     for span in strong('span'):
                                         print "\t\t%s" % span.contents[0]
+                        break
+
