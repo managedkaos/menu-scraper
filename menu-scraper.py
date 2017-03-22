@@ -1,16 +1,34 @@
 import requests
 from bs4 import BeautifulSoup
 
-r = requests.get("http://legacy.cafebonappetit.com/weekly-menu/145942")
+menus = {
+        'ABC Riverside':'http://legacy.cafebonappetit.com/weekly-menu/145942', 
+        'Grand Central': 'http://legacy.cafebonappetit.com/weekly-menu/146007', 
+        'Circle 7': 'http://legacy.cafebonappetit.com/weekly-menu/146182', 
+        'Buena Vista': 'http://legacy.cafebonappetit.com/weekly-menu/146581', 
+        'Big D': 'http://legacy.cafebonappetit.com/weekly-menu/147508',
+        'Kingswell': 'http://legacy.cafebonappetit.com/weekly-menu/151138'
+    }
 
-data = r.text
+days = ['Monday','Tuesday','Wednesday','Thursday','Friday']
 
-soup = BeautifulSoup(data, "lxml")
+for cafe in menus:
+    print cafe 
+    r = requests.get(menus[cafe])
+    data = r.text
+    soup = BeautifulSoup(data, "lxml")
 
-for thx in soup('div', {'class':'row'}):
-    for thy in thx('div', {'class':'spacer day'}):
-        for thz in thy('span', {'class':'stationname'}):
-            print thz.contents[0]
-            if ('STOCKPOT' in thz.contents[0]):
-                print 'this is the corrct row!'
-                print thx
+    for row in soup('div',{'class':'row'}):
+        for spacer_day in row('div',{'class':'spacer day'}):
+            for stationname in spacer_day('span',{'class':'stationname'}):
+                if 'STOCKPOT' in stationname.contents[0]:
+                    day_counter=0
+                    for cell_menu_item in row('div',{'class':'cell_menu_item'}):
+                        print "\t%s" % days[day_counter]
+                        day_counter += 1
+
+                        for menu_item in cell_menu_item('div',{'class':'menu-item'}):
+                            for menu_item_description in menu_item('div',{'class':'menu-item-description'}):
+                                for strong in menu_item_description('strong'):
+                                    for span in strong('span'):
+                                        print "\t\t%s" % span.contents[0]
