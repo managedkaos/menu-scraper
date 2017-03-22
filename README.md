@@ -1,2 +1,2 @@
 # menu-scraper
-Scraping menus for info.
+Scraping menus for soup.
