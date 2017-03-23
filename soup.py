@@ -13,7 +13,10 @@ menus = {
     }
 
 days = ['Monday','Tuesday','Wednesday','Thursday','Friday']
-today = datetime.datetime.now().strftime('%A')
+
+today = datetime.datetime.today().strftime('%A')
+tomorrow = (datetime.date.today() + datetime.timedelta(days=1)).strftime('%A')
+day = today
 
 for cafe in menus:
     print cafe 
@@ -27,7 +30,7 @@ for cafe in menus:
                 if 'STOCKPOT' in stationname.contents[0]:
                     day_counter=0
                     for cell_menu_item in row('div',{'class':'cell_menu_item'}):
-                        if today not in days[day_counter]:
+                        if day not in days[day_counter]:
                             day_counter += 1
                             continue
 
