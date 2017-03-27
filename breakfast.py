@@ -16,7 +16,6 @@ days = ['Monday','Tuesday','Wednesday','Thursday','Friday']
 
 today = datetime.datetime.today().strftime('%A')
 tomorrow = (datetime.date.today() + datetime.timedelta(days=1)).strftime('%A')
-day = tomorrow
 
 for cafe in menus:
     print cafe 
@@ -30,8 +29,10 @@ for cafe in menus:
                 if 'BREAKFAST' in stationname.contents[0]:
                     day_counter=0
                     for cell_menu_item in row('div',{'class':'cell_menu_item'}):
-                        if day not in days[day_counter]:
-                            day_counter += 1
+                        day_counter = (day_counter + 1) % 5
+                        if days[day_counter] in [today, tomorrow]:
+                            pass
+                        else:
                             continue
 
                         print "\t%s" % days[day_counter]
@@ -41,5 +42,4 @@ for cafe in menus:
                                 for strong in menu_item_description('strong'):
                                     for span in strong('span'):
                                         print "\t\t%s" % span.contents[0]
-                        break
-
+                        #break
