@@ -12,7 +12,7 @@ for cafe in menus:
         for spacer_day in row('div',{'class':'spacer day'}):
             for stationname in spacer_day('span',{'class':'stationname'}):
                 if 'BREAKFAST' in stationname.contents[0]:
-                    day_counter=0
+                    day_counter=4
                     for cell_menu_item in row('div',{'class':'cell_menu_item'}):
                         day_counter = (day_counter + 1) % 5
                         if days[day_counter] in [today, tomorrow]:
