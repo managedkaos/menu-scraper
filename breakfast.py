@@ -1,10 +1,10 @@
 import datetime
-from bonappetit_menus import menus, days, get_weekly_menu
+from bonappetit_menus import cafes, days, get_weekly_menu
 
 today = datetime.datetime.today().strftime('%A')
 tomorrow = (datetime.date.today() + datetime.timedelta(days=1)).strftime('%A')
 
-for cafe in menus:
+for cafe in cafes:
     print cafe
     soup = get_weekly_menu(cafe)
 

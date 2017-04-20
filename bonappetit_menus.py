@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # URLs for each cafe's main menu
-menus = {
+cafes = {
         'ABC Riverside':'http://wds.cafebonappetit.com/cafe/abc-riverside/',
         'Grand Central': 'http://wds.cafebonappetit.com/cafe/grand-central-cafe/',
         'Circle 7': 'http://wds.cafebonappetit.com/cafe/circle-7-cafe/',
@@ -18,7 +18,7 @@ days = ['Monday','Tuesday','Wednesday','Thursday','Friday']
 def get_weekly_menu(cafe):
 
     # make a request to the main menu URL for the specified cafe
-    r = requests.get(menus[cafe])
+    r = requests.get(cafes[cafe])
 
     # convert the response text to soup
     soup = BeautifulSoup(r.text, "lxml")
