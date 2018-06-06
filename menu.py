@@ -3,10 +3,10 @@ import argparse
 from bonappetit_menus import cafes, days, get_weekly_menu
 
 for cafe in cafes:
-    print cafe 
-    soup = get_weekly_menu(cafe)
+    print cafe
+    menu = get_weekly_menu(cafe)
     print "  soup"
-    for row in soup('div',{'class':'row'}):
+    for row in menu('div',{'class':'row'}):
         for spacer_day in row('div',{'class':'spacer day'}):
             for stationname in spacer_day('span',{'class':'stationname'}):
                 if 'STOCKPOT' in stationname.contents[0]:
@@ -21,7 +21,7 @@ for cafe in cafes:
                         day_counter = (day_counter + 1) % 5
 
     print "  breakfast"
-    for row in soup('div',{'class':'row'}):
+    for row in menu('div',{'class':'row'}):
         for spacer_day in row('div',{'class':'spacer day'}):
             for stationname in spacer_day('span',{'class':'stationname'}):
                 if 'BREAKFAST' in stationname.contents[0]:
