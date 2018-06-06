@@ -5,10 +5,10 @@ today = datetime.datetime.today().strftime('%A')
 tomorrow = (datetime.date.today() + datetime.timedelta(days=1)).strftime('%A')
 
 for cafe in cafes:
-    print cafe 
-    soup = get_weekly_menu(cafe)
+    print cafe
+    menu = get_weekly_menu(cafe)
 
-    for row in soup('div',{'class':'row'}):
+    for row in menu('div',{'class':'row'}):
         for spacer_day in row('div',{'class':'spacer day'}):
             for stationname in spacer_day('span',{'class':'stationname'}):
                 if 'STOCKPOT' in stationname.contents[0]:
